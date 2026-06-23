@@ -35,6 +35,14 @@
             #sensor-binding-cells = <0>;
             tap-ms = <0>;
         };
+
+        // Delete a specific Bluetooth channel: select it, then clear its bond.
+        // Reached only via the ADMIN layer (hold NUMBER + SYMBOL).
+        bt_del0: bt_del0 { compatible = "zmk,behavior-macro"; #binding-cells = <0>; wait-ms = <40>; tap-ms = <40>; bindings = <&bt BT_SEL 0 &bt BT_CLR>; };
+        bt_del1: bt_del1 { compatible = "zmk,behavior-macro"; #binding-cells = <0>; wait-ms = <40>; tap-ms = <40>; bindings = <&bt BT_SEL 1 &bt BT_CLR>; };
+        bt_del2: bt_del2 { compatible = "zmk,behavior-macro"; #binding-cells = <0>; wait-ms = <40>; tap-ms = <40>; bindings = <&bt BT_SEL 2 &bt BT_CLR>; };
+        bt_del3: bt_del3 { compatible = "zmk,behavior-macro"; #binding-cells = <0>; wait-ms = <40>; tap-ms = <40>; bindings = <&bt BT_SEL 3 &bt BT_CLR>; };
+        bt_del4: bt_del4 { compatible = "zmk,behavior-macro"; #binding-cells = <0>; wait-ms = <40>; tap-ms = <40>; bindings = <&bt BT_SEL 4 &bt BT_CLR>; };
     };
 
     combos {
@@ -43,6 +51,16 @@
         softoff {
             bindings = <&soft_off>;
             key-positions = <1 15 29>;
+        };
+    };
+
+    conditional_layers {
+        compatible = "zmk,conditional-layers";
+
+        // Hold NUMBER (1) + SYMBOL (2) together -> ADMIN (4)
+        bt_admin {
+            if-layers = <1 2>;
+            then-layer = <4>;
         };
     };
 
@@ -65,8 +83,8 @@
             display-name = "NUMBER";
             bindings = <
 &trans  &kp N1           &kp N2          &kp N3        &kp N4        &kp N5                                         &mmv MOVE_UP                     &kp N6           &kp N7           &kp N8           &kp N9           &kp N0    &kp BSPC
-&trans  &bt BT_CLR_ALL   &bt BT_SEL 0    &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3                   &mmv MOVE_LEFT  &mkp LCLK       &mmv MOVE_RIGHT  &kp LEFT         &kp DOWN         &kp UP           &kp RIGHT        &kp HOME  &kp PG_UP
-&trans  &rgb_ug RGB_OFF  &rgb_ug RGB_ON  &trans        &trans        &rgb_ug RGB_EFF  &kp C_MUTE                    &mmv MOVE_DOWN                   &rgb_ug RGB_EFR  &rgb_ug RGB_SPI  &rgb_ug RGB_BRI  &rgb_ug RGB_BRD  &kp END   &kp PG_DN
+&trans  &bt BT_SEL 0     &bt BT_SEL 1    &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4                   &mmv MOVE_LEFT  &mkp LCLK       &mmv MOVE_RIGHT  &kp LEFT         &kp DOWN         &kp UP           &kp RIGHT        &kp HOME  &kp PG_UP
+&trans  &rgb_ug RGB_OFF  &rgb_ug RGB_ON  &trans        &mkp LCLK     &rgb_ug RGB_EFF  &kp C_MUTE                    &mmv MOVE_DOWN                   &rgb_ug RGB_EFR  &rgb_ug RGB_SPI  &rgb_ug RGB_BRI  &rgb_ug RGB_BRD  &kp END   &kp PG_DN
                                          &trans        &trans        &trans                                                                          &kp INS          &kp DEL          &trans
             >;
 
@@ -77,8 +95,8 @@
             display-name = "SYMBOL";
             bindings = <
 &trans  &kp EXCL      &kp AT        &kp HASH   &kp DLLR   &kp PRCNT                            &mmv MOVE_UP                     &kp CARET  &kp AMPS   &kp ASTRK  &kp LPAR  &kp RPAR  &kp BSPC
-&trans  &bt BT_CLR    &mkp LCLK     &mkp MCLK  &mkp RCLK  &mkp MB4             &mmv MOVE_LEFT  &mkp LCLK       &mmv MOVE_RIGHT  &kp MINUS  &kp EQUAL  &kp LBKT   &kp RBKT  &kp BSLH  &kp GRAVE
-&trans  &out OUT_USB  &out OUT_BLE  &none      &none      &mkp MB5   &trans                    &mmv MOVE_DOWN                   &kp UNDER  &kp PLUS   &kp LBRC   &kp RBRC  &kp PIPE  &kp TILDE
+&trans  &trans       &mkp LCLK     &mkp MCLK  &mkp RCLK  &mkp MB4             &mmv MOVE_LEFT  &mkp LCLK       &mmv MOVE_RIGHT  &kp MINUS  &kp EQUAL  &kp LBKT   &kp RBKT  &kp BSLH  &kp GRAVE
+&trans  &out OUT_USB  &out OUT_BLE  &none      &mkp RCLK  &mkp MB5   &trans                    &mmv MOVE_DOWN                   &kp UNDER  &kp PLUS   &kp LBRC   &kp RBRC  &kp PIPE  &kp TILDE
                                     &trans     &trans     &kp SPACE                                                             &kp RET    &trans     &trans
             >;
 
@@ -95,6 +113,18 @@
             >;
 
             sensor-bindings = <&rsr_vol &rsr_trans>;
+        };
+
+        admin_layer {
+            display-name = "ADMIN";
+            bindings = <
+&trans  &trans    &trans    &trans    &trans    &trans                                 &trans                   &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &bt_del0  &bt_del1  &bt_del2  &bt_del3  &bt_del4               &trans  &trans   &trans          &trans   &trans  &trans  &trans  &trans  &trans
+&trans  &trans    &trans    &trans    &trans    &trans   &trans                &trans                   &trans  &trans  &trans  &trans  &trans  &trans
+                            &trans    &trans    &trans                                                          &trans  &trans  &trans
+            >;
+
+            sensor-bindings = <&rsr_trans &rsr_trans>;
         };
     };
 };
