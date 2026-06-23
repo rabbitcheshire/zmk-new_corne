@@ -86,8 +86,8 @@ layers:
   - RGB EFF
   - $$mdi:volume-off$$
   - {t: '$$mdi:menu-down$$', s: '$$mdi:mouse$$'}
-  - RGB EFR
-  - RGB TOG
+  - RGB SAI
+  - RGB SAD
   - RGB BRI
   - RGB BRD
   - END
