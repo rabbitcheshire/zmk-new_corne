@@ -126,8 +126,8 @@
             display-name = "ADMIN";
             bindings = <
 &trans  &trans    &trans    &trans    &trans    &trans                                 &trans                   &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &bt_del0  &bt_del1  &bt_del2  &bt_del3  &bt_del4               &trans  &trans   &trans          &trans   &trans  &trans  &trans  &trans  &trans
-&trans  &trans    &trans    &trans    &trans    &trans   &trans                &trans                   &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &bt_del0  &bt_del1  &bt_del2  &bt_del3  &bt_del4               &trans  &trans   &trans          &rgb_ug RGB_HUI  &rgb_ug RGB_HUD  &trans  &trans  &trans  &trans
+&trans  &trans    &trans    &trans    &trans    &trans   &trans                &trans                   &rgb_ug RGB_SPI  &rgb_ug RGB_SPD  &trans  &trans  &trans  &trans
                             &trans    &trans    &trans                                                          &trans  &trans  &trans
             >;
 
